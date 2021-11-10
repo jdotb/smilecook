@@ -14,14 +14,15 @@ def get_last_id():
 class Recipe(db.Model):
     __tablename__ = 'recipe'
 
-    def __init__(self, name, description, num_of_servings, cook_time, directions):
-        self.id = get_last_id()
-        self.name = name
-        self.description = description
-        self.num_of_servings = num_of_servings
-        self.cook_time = cook_time
-        self.directions = directions
-        self.is_publish = False                 # By default, recipe is set as draft
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    description = db.Column(db.String(200))
+    num_of_servings = db.Column(db.Integer)
+    directions = db.Column(db.String(1000))
+    is_publish = db.Column(db.Boolean(), default=False)
+    created_at = db.Column(db.DateTime(), nullable=False, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime(), nullable=False, server_default=db.func.now(), onupdate=db.func.now())
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
 
     @property
     def data(self):
