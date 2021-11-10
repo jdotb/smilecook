@@ -3,10 +3,9 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from extensions import db
-from models.user import User
 
 from resources.recipe import RecipeListResource, RecipeResource, RecipePublishResource
-
+from resources.user import UserListResource
 
 def create_app():
     app = Flask(__name__)
@@ -26,6 +25,8 @@ def register_extensions(app):
 def register_resources(app):
     api = Api(app)
 
+    # resource routing
+    api.add_resource(UserListResource, '/users')
     api.add_resource(RecipeListResource, '/recipes')
     api.add_resource(RecipeResource, '/recipes/<int:recipe_id>')
     api.add_resource(RecipePublishResource, '/recipes/<int:recipe_id>/publish')

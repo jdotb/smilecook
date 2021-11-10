@@ -18,6 +18,7 @@ class Recipe(db.Model):
     name = db.Column(db.String(100), nullable=False, unique=True)
     description = db.Column(db.String(200))
     num_of_servings = db.Column(db.Integer)
+    cook_time = db.Column(db.Integer)
     directions = db.Column(db.String(1000))
     is_publish = db.Column(db.Boolean(), default=False)
     created_at = db.Column(db.DateTime(), nullable=False, server_default=db.func.now())
